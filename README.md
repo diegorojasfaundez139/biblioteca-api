@@ -1,7 +1,7 @@
 # Biblioteca API
 
-API REST para la gestión de una biblioteca.
-
+La aplicación permite gestionar libros y usuarios de una biblioteca
+mediante una API REST conectada a PostgreSQL.
 ## Tecnologías
 
 - Java 21
@@ -31,3 +31,15 @@ POST /books
 PUT /books/{id}
 
 DELETE /books/{id}
+
+## Usuarios
+
+GET /users
+
+GET /users/{id}
+
+POST /users
+
+PUT /users/{id}
+
+DELETE /users/{id}
