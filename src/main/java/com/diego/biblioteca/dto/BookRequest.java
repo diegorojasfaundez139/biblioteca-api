@@ -16,6 +16,9 @@ public class BookRequest {
     @Min(value = 1000, message = "El año no es válido")
     private Integer year;
 
+    @NotBlank(message = "La categoría es obligatoria")
+    private String category;
+
     public BookRequest() {
     }
 
@@ -41,5 +44,12 @@ public class BookRequest {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

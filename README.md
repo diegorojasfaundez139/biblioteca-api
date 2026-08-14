@@ -1,19 +1,33 @@
 # Biblioteca API
 
-Proyecto desarrollado con Spring Boot.
+API REST para la gestión de una biblioteca.
 
 ## Tecnologías
 
-- Java
+- Java 21
 - Spring Boot
+- Spring Data JPA
 - PostgreSQL
 - Maven
+- JUnit
+- Mockito
+- Git
+- GitHub
 
-## Funcionalidades
+## Endpoints
 
-- API REST
-- Endpoint /hello
+### Libros
 
-## Autor
+GET /books
 
-Diego Rojas
+GET /books/{id}
+
+GET /books/search?title=java
+
+GET /books/search?author=martin
+
+POST /books
+
+PUT /books/{id}
+
+DELETE /books/{id}

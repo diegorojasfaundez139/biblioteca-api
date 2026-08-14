@@ -15,14 +15,16 @@ public class Book {
     private String author;
 
     private Integer year;
+    private String category;
 
     public Book() {
     }
 
-    public Book(String title, String author, Integer year) {
+    public Book(String title, String author, Integer year, String category) {
         this.title = title;
         this.author = author;
         this.year = year;
+        this.category = category;
     }
 
     public Long getId() {
@@ -51,5 +53,12 @@ public class Book {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
