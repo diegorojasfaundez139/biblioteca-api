@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.diego.biblioteca.dto.BookRequest;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class BookController {
         book.setTitle(request.getTitle());
         book.setAuthor(request.getAuthor());
         book.setYear(request.getYear());
+        book.setCategory(request.getCategory());
 
         return bookService.save(book);
     }
@@ -64,11 +66,27 @@ public class BookController {
                     book.setTitle(request.getTitle());
                     book.setAuthor(request.getAuthor());
                     book.setYear(request.getYear());
+                    book.setCategory(request.getCategory());
 
                     Book updatedBook = bookService.save(book);
 
                     return ResponseEntity.ok(updatedBook);
                 })
                 .orElse(ResponseEntity.notFound().build());
+    }
+    @GetMapping("/search")
+    public List<Book> searchBooks(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String author) {
+
+        if (title != null) {
+            return bookService.searchByTitle(title);
+        }
+
+        if (author != null) {
+            return bookService.searchByAuthor(author);
+        }
+
+        return bookService.findAll();
     }
 }
