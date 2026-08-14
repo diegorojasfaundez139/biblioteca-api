@@ -3,7 +3,7 @@ package com.diego.biblioteca;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApp	lication
+@SpringBootApplication
 public class BibliotecaApplication {
 
 	public static void main(String[] args) {

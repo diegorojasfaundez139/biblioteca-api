@@ -4,6 +4,8 @@ import com.diego.biblioteca.model.Book;
 import com.diego.biblioteca.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.diego.biblioteca.dto.BookRequest;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -30,15 +32,43 @@ public class BookController {
     }
 
     @PostMapping
-    public Book createBook(@RequestBody Book book) {
+    public Book createBook(@Valid @RequestBody BookRequest request) {
+
+        Book book = new Book();
+
+        book.setTitle(request.getTitle());
+        book.setAuthor(request.getAuthor());
+        book.setYear(request.getYear());
+
         return bookService.save(book);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
 
-        bookService.deleteById(id);
+        return bookService.findById(id)
+                .map(book -> {
+                    bookService.deleteById(id);
+                    return ResponseEntity.noContent().<Void>build();
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> updateBook(
+            @PathVariable Long id,
+            @Valid @RequestBody BookRequest request) {
 
-        return ResponseEntity.noContent().build();
+        return bookService.findById(id)
+                .map(book -> {
+
+                    book.setTitle(request.getTitle());
+                    book.setAuthor(request.getAuthor());
+                    book.setYear(request.getYear());
+
+                    Book updatedBook = bookService.save(book);
+
+                    return ResponseEntity.ok(updatedBook);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
