@@ -1,5 +1,6 @@
 package com.diego.biblioteca.service;
 
+import com.diego.biblioteca.exception.UserNotFoundException;
 import com.diego.biblioteca.model.User;
 import com.diego.biblioteca.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,11 @@ public class UserService {
     }
 
     public void deleteById(Long id) {
+
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException("Usuario no encontrado");
+        }
+
         userRepository.deleteById(id);
     }
 }
