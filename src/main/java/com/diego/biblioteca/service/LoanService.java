@@ -8,6 +8,9 @@ import com.diego.biblioteca.repository.LoanRepository;
 import com.diego.biblioteca.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import com.diego.biblioteca.exception.BookAlreadyLoanedException;
+import com.diego.biblioteca.exception.ResourceNotFoundException;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -41,14 +44,16 @@ public class LoanService {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() ->
-                        new RuntimeException("Usuario no encontrado"));
+                        new ResourceNotFoundException("Usuario no encontrado"));
 
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() ->
-                        new RuntimeException("Libro no encontrado"));
+                        new ResourceNotFoundException("Libro no encontrado"));
 
         if (loanRepository.existsByBookIdAndReturnDateIsNull(bookId)) {
-            throw new RuntimeException("El libro ya está prestado");
+            throw new BookAlreadyLoanedException(
+                    "El libro ya está prestado"
+            );
         }
 
         Loan loan = new Loan();
@@ -64,7 +69,7 @@ public class LoanService {
 
         Loan loan = loanRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Préstamo no encontrado"));
+                        new ResourceNotFoundException("Préstamo no encontrado"));
 
         loan.setReturnDate(LocalDate.now());
 
