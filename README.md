@@ -43,3 +43,24 @@ POST /users
 PUT /users/{id}
 
 DELETE /users/{id}
+
+## Préstamos
+
+POST /loans
+
+GET /loans
+
+GET /loans/{id}
+
+PUT /loans/{id}/return
+
+## Códigos HTTP
+
+| Código | Significado |
+|---|---|
+| 200 | Operación exitosa |
+| 201 | Recurso creado |
+| 204 | Recurso eliminado |
+| 400 | Petición inválida |
+| 404 | Recurso no encontrado |
+| 409 | Conflicto |
