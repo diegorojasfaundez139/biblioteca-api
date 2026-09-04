@@ -64,3 +64,15 @@ PUT /loans/{id}/return
 | 400 | Petición inválida |
 | 404 | Recurso no encontrado |
 | 409 | Conflicto |
+
+## Ejecutar con Docker
+
+### Requisitos
+
+- Docker
+- Docker Compose
+
+### Construir
+
+```bash
+docker compose build
