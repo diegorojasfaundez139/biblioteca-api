@@ -44,7 +44,7 @@ jobs:
           DB_URL: jdbc:postgresql://localhost:5432/biblioteca
           DB_USERNAME: postgres
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: 
+        run: |
           echo "DB_URL=$DB_URL"
           echo "DB_USERNAME=$DB_USERNAME"
           if [ -n "$DB_PASSWORD" ]; then
