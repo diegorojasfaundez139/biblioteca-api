@@ -47,6 +47,7 @@ jobs:
         run: |
           echo "DB_URL=$DB_URL"
           echo "DB_USERNAME=$DB_USERNAME"
+
           if [ -n "$DB_PASSWORD" ]; then
             echo "DB_PASSWORD está configurado"
           else
