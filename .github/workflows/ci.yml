@@ -58,7 +58,7 @@ jobs:
         env:
           DB_URL: ${{ secrets.DB_URL }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: postgres 
+          DB_PASSWORD: 78946132528
         run: mvn clean test
 
       - name: Construir aplicación
