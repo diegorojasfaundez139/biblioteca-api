@@ -39,7 +39,20 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-
+      - name: Verificar variables
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/biblioteca
+          DB_USERNAME: postgres
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          echo "DB_URL=$DB_URL"
+          echo "DB_USERNAME=$DB_USERNAME"
+          if [ -n "$DB_PASSWORD" ]; then
+            echo "DB_PASSWORD está configurado"
+          else
+            echo "DB_PASSWORD NO está configurado"
+            exit 1
+          fi
       - name: Ejecutar pruebas
         env:
           DB_URL: ${{ secrets.DB_URL }}
