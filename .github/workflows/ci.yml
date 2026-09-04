@@ -44,14 +44,14 @@ jobs:
         env:
           DB_URL: jdbc:postgresql://localhost:5432/biblioteca
           DB_USERNAME: postgres
-          DB_PASSWORD: 78946132528
+          DB_PASSWORD: postgres
         run: mvn clean test
 
       - name: Construir aplicación
         env:
           DB_URL: jdbc:postgresql://localhost:5432/biblioteca
           DB_USERNAME: postgres
-          DB_PASSWORD: 78946132528
+          DB_PASSWORD: postgres
         run: mvn clean package -DskipTests
 
       - name: Construir imagen Docker
