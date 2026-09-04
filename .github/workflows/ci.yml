@@ -19,7 +19,7 @@ jobs:
         env:
           POSTGRES_DB: biblioteca
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: 78946132528
         ports:
           - 5432:5432
         options: >-
@@ -58,7 +58,7 @@ jobs:
         env:
           DB_URL: ${{ secrets.DB_URL }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: postgres
+          DB_PASSWORD: 78946132528
         run: mvn clean test
 
       - name: Construir aplicación
