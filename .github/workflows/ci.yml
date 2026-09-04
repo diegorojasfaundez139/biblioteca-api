@@ -19,7 +19,7 @@ jobs:
         env:
           POSTGRES_DB: biblioteca
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: ${DB_PASSWORD}
         ports:
           - 5432:5432
         options: >-
@@ -44,14 +44,14 @@ jobs:
         env:
           DB_URL: jdbc:postgresql://localhost:5432/biblioteca
           DB_USERNAME: postgres
-          DB_PASSWORD: postgres
+          DB_PASSWORD: ${DB_PASSWORD}
         run: mvn clean test
 
       - name: Construir aplicación
         env:
           DB_URL: jdbc:postgresql://localhost:5432/biblioteca
           DB_USERNAME: postgres
-          DB_PASSWORD: postgres
+          DB_PASSWORD: ${DB_PASSWORD}
         run: mvn clean package -DskipTests
 
       - name: Construir imagen Docker
