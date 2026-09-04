@@ -13,6 +13,21 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: biblioteca
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d biblioteca"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
 
       - name: Descargar código
@@ -26,9 +41,17 @@ jobs:
           cache: maven
 
       - name: Ejecutar pruebas
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/biblioteca
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
         run: mvn clean test
 
       - name: Construir aplicación
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/biblioteca
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
         run: mvn clean package -DskipTests
 
       - name: Construir imagen Docker
