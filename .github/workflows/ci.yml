@@ -19,7 +19,7 @@ jobs:
         env:
           POSTGRES_DB: biblioteca
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ***REMOVED***
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
         ports:
           - 5432:5432
         options: >-
@@ -41,8 +41,8 @@ jobs:
           cache: maven
       - name: Verificar variables
         env:
-          DB_URL: jdbc:postgresql://localhost:5432/biblioteca
-          DB_USERNAME: postgres
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           echo "DB_URL=$DB_URL"
@@ -58,7 +58,7 @@ jobs:
         env:
           DB_URL: ${{ secrets.DB_URL }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ***REMOVED***
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: mvn clean test
 
       - name: Construir aplicación
