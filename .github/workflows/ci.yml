@@ -54,6 +54,16 @@ jobs:
             echo "DB_PASSWORD NO está configurado"
             exit 1
           fi
+      - name: Probar conexión PostgreSQL
+        env:
+          PGPASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          PGPASSWORD="$PGPASSWORD" psql \
+            -h localhost \
+            -p 5432 \
+            -U postgres \
+            -d biblioteca \
+            -c "SELECT 1;"
       - name: Ejecutar pruebas
         env:
           DB_URL: ${{ secrets.DB_URL }}
