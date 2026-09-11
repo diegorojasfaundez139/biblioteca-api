@@ -64,7 +64,7 @@ jobs:
             -U postgres \
             -d biblioteca \
             -c "SELECT 1;"
-      - name: Ejecutar pruebas
+      - name: Ejecutar pruebas 
         env:
           DB_URL: ${{ secrets.DB_URL }}
           DB_USERNAME: postgres
