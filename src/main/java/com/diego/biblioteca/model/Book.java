@@ -1,6 +1,7 @@
 package com.diego.biblioteca.model;
 
 import jakarta.persistence.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "books")
@@ -8,13 +9,34 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(
+            description = "Identificador único del libro",
+            example = "1"
+    )
     private Long id;
 
+    @Schema(
+            description = "Título del libro",
+            example = "Clean Code"
+    )
     private String title;
 
+    @Schema(
+            description = "Autor del libro",
+            example = "Robert C. Martin"
+    )
     private String author;
 
+    @Schema(
+            description = "Año de publicación del libro",
+            example = "2008"
+    )
     private Integer year;
+
+    @Schema(
+            description = "Categoría del libro",
+            example = "Programación"
+    )
     private String category;
 
     public Book() {

@@ -112,13 +112,13 @@ class BookControllerTest {
                                 .content(json)
                 )
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.title")
+                .andExpect(jsonPath("$.errors.title")
                         .value("El título es obligatorio"))
-                .andExpect(jsonPath("$.author")
+                .andExpect(jsonPath("$.errors.author")
                         .value("El autor es obligatorio"))
-                .andExpect(jsonPath("$.year")
+                .andExpect(jsonPath("$.errors.year")
                         .value("El año no es válido"))
-                .andExpect(jsonPath("$.category")
+                .andExpect(jsonPath("$.errors.category")
                         .value("La categoría es obligatoria"));
     }
     @Test

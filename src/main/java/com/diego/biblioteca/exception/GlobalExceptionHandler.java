@@ -13,11 +13,10 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BookNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleBookNotFound(
+    public ResponseEntity<ErrorResponse> handleBookNotFound(
             BookNotFoundException exception) {
 
-        Map<String, String> error = new HashMap<>();
-        error.put("error", exception.getMessage());
+        ErrorResponse error = new ErrorResponse(exception.getMessage());
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -25,11 +24,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleUserNotFound(
+    public ResponseEntity<ErrorResponse> handleUserNotFound(
             UserNotFoundException exception) {
 
-        Map<String, String> error = new HashMap<>();
-        error.put("error", exception.getMessage());
+        ErrorResponse error = new ErrorResponse(exception.getMessage());
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -37,11 +35,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(LoanNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleLoanNotFound(
+    public ResponseEntity<ErrorResponse> handleLoanNotFound(
             LoanNotFoundException exception) {
 
-        Map<String, String> error = new HashMap<>();
-        error.put("error", exception.getMessage());
+        ErrorResponse error = new ErrorResponse(exception.getMessage());
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -49,11 +46,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleResourceNotFound(
+    public ResponseEntity<ErrorResponse> handleResourceNotFound(
             ResourceNotFoundException exception) {
 
-        Map<String, String> error = new HashMap<>();
-        error.put("error", exception.getMessage());
+        ErrorResponse error = new ErrorResponse(exception.getMessage());
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -61,11 +57,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BookAlreadyLoanedException.class)
-    public ResponseEntity<Map<String, String>> handleBookAlreadyLoaned(
+    public ResponseEntity<ErrorResponse> handleBookAlreadyLoaned(
             BookAlreadyLoanedException exception) {
 
-        Map<String, String> error = new HashMap<>();
-        error.put("error", exception.getMessage());
+        ErrorResponse error = new ErrorResponse(exception.getMessage());
 
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
@@ -73,7 +68,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationErrors(
+    public ResponseEntity<ValidationErrorResponse> handleValidationErrors(
             MethodArgumentNotValidException exception) {
 
         Map<String, String> errors = new HashMap<>();
@@ -87,8 +82,11 @@ public class GlobalExceptionHandler {
                         )
                 );
 
+        ValidationErrorResponse response =
+                new ValidationErrorResponse(errors);
+
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(errors);
+                .body(response);
     }
 }
