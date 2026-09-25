@@ -43,48 +43,47 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+
       - name: Iniciar sesión en GHCR
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Verificar variables
+
+      - name: Verificar secretos
         env:
-          DB_URL: ${{ secrets.DB_URL }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          echo "DB_URL=$DB_URL"
-          echo "DB_USERNAME=$DB_USERNAME"
-
           if [ -n "$DB_PASSWORD" ]; then
             echo "DB_PASSWORD está configurado"
           else
             echo "DB_PASSWORD NO está configurado"
             exit 1
           fi
+
       - name: Probar conexión PostgreSQL
         env:
           PGPASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          PGPASSWORD="$PGPASSWORD" psql \
+          psql \
             -h localhost \
             -p 5432 \
             -U postgres \
             -d biblioteca \
             -c "SELECT 1;"
+
       - name: Ejecutar pruebas
         env:
-          DB_URL: ${{ secrets.DB_URL }}
+          DB_URL: jdbc:postgresql://localhost:5432/biblioteca
           DB_USERNAME: postgres
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: mvn clean test
 
       - name: Construir aplicación
         env:
-          DB_URL: ${{ secrets.DB_URL }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_URL: jdbc:postgresql://localhost:5432/biblioteca
+          DB_USERNAME: postgres
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: mvn clean package -DskipTests
 
