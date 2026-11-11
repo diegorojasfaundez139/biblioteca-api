@@ -11,6 +11,8 @@ mediante una API REST conectada a PostgreSQL.
 - Maven
 - JUnit
 - Mockito
+- MockMvc
+- Test containers
 - Git
 - GitHub
 
